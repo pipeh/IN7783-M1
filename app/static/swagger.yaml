@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: API de Actividad individual obligatoria 1.1
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: "Endpoint raíz"
+      description: "Este endpoint responde a las solicitudes GET en la raíz del servidor. Devuelve una respuesta básica para verificar que el servidor está funcionando."
+      responses:
+        '200':
+          description: "Respuesta exitosa con estado OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Servidor Flask en ejecución. Accede a /docs para ver la documentación."
+  /profile:
+    get:
+      summary: "Renderizar perfil del usuario"
+      description: "Este endpoint recibe los parámetros `nombre`, `correo` y `fecha_registro` en la URL o como parámetros de consulta, y renderiza un archivo HTML con la información del perfil del usuario."
+      parameters:
+        - name: nombre
+          in: query
+          description: "Nombre del usuario"
+          required: true
+          schema:
+            type: string
+            example: "Felipe Hernández"
+        - name: correo
+          in: query
+          description: "Correo electrónico del usuario"
+          required: true
+          schema:
+            type: string
+            example: "felipe@ejemplo.com"
+        - name: fecha_registro
+          in: query
+          description: "Fecha de registro del usuario"
+          required: true
+          schema:
+            type: string
+            format: date
+            example: "2025-03-10"
+      responses:
+        '200':
+          description: "Perfil del usuario renderizado exitosamente en formato HTML"
+          content:
+            text/html:
+              schema:
+                type: string
+                example: |
+                  <html>
+                    <body>
+                      <h1>Perfil de Usuario</h1>
+                      <p>Nombre: Juan Pérez</p>
+                      <p>Correo: juanperez@ejemplo.com</p>
+                      <p>Fecha de Registro: 2024-03-09</p>
+                    </body>
+                  </html>
